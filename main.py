@@ -1,11 +1,11 @@
-import os
+import os #used to read and minipulate 
 from google import genai
 from google.genai import types
-from dotenv import load_dotenv
+from dotenv import load_dotenv #reads the .env file safely
 import sys
 
-def generate_content(client, messages, verbose):
-    response = client.models.generate_content(
+def generate_content(client, messages, verbose): #This generate content function is my custome function that shares the same name as the google-api method
+    response = client.models.generate_content( #This generated_content method is from the google-api
         model="gemini-2.0-flash-001",
         contents= messages,
     ) 
@@ -17,7 +17,7 @@ def generate_content(client, messages, verbose):
 
 def main():
     load_dotenv()
-    verbose = "--verbose" in sys.argv
+    verbose = "--verbose" in sys.argv # becomes True if the found and false otherwise
     args = []
     for arg in sys.argv[1:]:
         if not arg.startswith("--"):
@@ -32,7 +32,7 @@ def main():
     api_key = os.environ.get("GEMINI_API_KEY")
     client = genai.Client(api_key=api_key)
 
-    user_prompt = " ".join(args )
+    user_prompt = " ".join(args)
 
     if verbose:
         print(f"User prompt: {user_prompt}")
